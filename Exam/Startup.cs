@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLogic;
+using BusinessLogic.Interfaces;
+using DataAccess;
+using DataAccess.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +20,14 @@ namespace Exam
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PlantShopDbContext>();
+
+            services.AddTransient<IRoomRepository, RoomRepository>();
+            services.AddTransient<IPlantRepository, PlantRepository>();
+            services.AddTransient<IInventoryRepository, InventoryRepository>();
+
+            services.AddTransient<IInventoryService, InventoryService>();
+            services.AddTransient<IPlantService, PlantService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,10 +42,7 @@ namespace Exam
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
