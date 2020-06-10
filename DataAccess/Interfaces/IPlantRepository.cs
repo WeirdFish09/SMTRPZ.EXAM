@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,9 +10,7 @@ namespace DataAccess.Interfaces
     {
         Plant Add(Plant plant);
         void Remove(Plant plant);
-        IEnumerable<Plant> FindByName(string name);
-        IEnumerable<Plant> FindByEnvironment(int environmentId);
-        IEnumerable<Plant> FindByRoom(int roomId);
+        IEnumerable<Plant> FindByFilter(PlantFilter filter);
         bool AssignToRoom(Plant plant, Room room);
     }
 }

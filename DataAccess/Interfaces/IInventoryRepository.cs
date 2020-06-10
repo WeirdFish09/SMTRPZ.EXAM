@@ -1,4 +1,5 @@
 ﻿using Model;
+using Model.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,6 @@ namespace DataAccess.Interfaces
         Inventory Add(Inventory plant);
         void Remove(Inventory plant);
         void AssignToRoom(Inventory inventory, Room room);
-        IEnumerable<Inventory> FindByName(string name);
-        IEnumerable<Inventory> FindByRoom(int roomId);
+        IEnumerable<Inventory> FindByFilter(InventoryFilter filter);
     }
 }
